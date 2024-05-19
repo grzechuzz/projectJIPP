@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QWidget>
+#include <QLabel>
 
 class MainPage : public QWidget
 {
@@ -8,5 +9,8 @@ class MainPage : public QWidget
 
 public:
 	explicit MainPage(QWidget* parent = nullptr);
+
+private:
+	QLabel* createEventDesign(const QString& backgroundPath, const QString& eventText, void (MainPage::* slot)());
 };
 
