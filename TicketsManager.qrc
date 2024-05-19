@@ -1,4 +1,5 @@
 <RCC>
-    <qresource prefix="TicketsManager">
+    <qresource prefix="/TicketsManager">
+        <file>background.jpg</file>
     </qresource>
 </RCC>
