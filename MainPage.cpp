@@ -6,7 +6,23 @@
 MainPage::MainPage(QWidget* parent)
 	: QWidget(parent)
 {
+	QVBoxLayout* mainLayout = new QVBoxLayout(this);
+	mainLayout->setContentsMargins(0, 60, 0, 20);
+	mainLayout->setAlignment(Qt::AlignTop | Qt::AlignHCenter);
 
+	QString eventText1 = "<h2 style='color:white;'>Ekstraliga 2025/2026</h2>"
+		"<h1 style='color:white;'>TSK <img src=':/TicketsManager/tsk.png' width='30' height='20'/> vs. <img src=':/TicketsManager/zt.png' width='30' height='20'/> ZT</h1>"
+		"<h3 style='color:white;'>04.09.2025 18:00 <span style='color:lightgray;'>STADION MIEJSKI - POZNAN</span></h3>";
+	QLabel* match1 = createEventDesign(":/TicketsManager/event1.png", eventText1, &MainPage::event1Selected);
+	mainLayout->addWidget(match1);
+
+	mainLayout->addSpacing(40);
+
+	QString eventText2 = "<h2 style='color:white;'>Sentio Tour</h2>"
+		"<h1 style='color:white;'>Marcin Garrix Show <img src=':/TicketsManager/sentio.jpg' width='30' height='20'/></h1>"
+		"<h3 style='color:white;'>10.11.2025 21:00 <span style='color:lightgray;'>TAURON ARENA KRAKOW</span></h3>";
+	QLabel* match2 = createEventDesign(":/TicketsManager/event2.png", eventText2, &MainPage::event2Selected);
+	mainLayout->addWidget(match2);
 }
 
 

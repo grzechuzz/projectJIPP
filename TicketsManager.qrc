@@ -1,5 +1,10 @@
 <RCC>
     <qresource prefix="/TicketsManager">
         <file>background.jpg</file>
+        <file>tsk.png</file>
+        <file>zt.png</file>
+        <file>event1.png</file>
+        <file>event2.png</file>
+        <file>sentio.jpg</file>
     </qresource>
 </RCC>
