@@ -10,6 +10,10 @@ class MainPage : public QWidget
 public:
 	explicit MainPage(QWidget* parent = nullptr);
 
+signals:
+	void event1Selected();
+	void event2Selected();
+
 private:
 	QLabel* createEventDesign(const QString& backgroundPath, const QString& eventText, void (MainPage::* slot)());
 };
