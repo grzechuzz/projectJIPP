@@ -17,6 +17,7 @@ public:
 private slots:
     void openEventPage1();
     void openEventPage2();
+    void goBackToMainPage();
 
 private:
     Ui::TicketsManagerClass ui;

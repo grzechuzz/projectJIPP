@@ -10,6 +10,9 @@ class EventPage : public QWidget
 public:
 	explicit EventPage(QWidget* parent = nullptr);
 
+signals:
+	void goBackToMainPage();
+
 private:
 	void setupButtons();
 	QPushButton* createStyledButton(const QString& text);
