@@ -15,6 +15,8 @@ TicketsManager::TicketsManager(QWidget *parent)
     
     connect(mainPage, &MainPage::event1Selected, this, &TicketsManager::openEventPage1);
     connect(mainPage, &MainPage::event2Selected, this, &TicketsManager::openEventPage2);
+    connect(eventPage1, &EventPage::goBackToMainPage, this, &TicketsManager::goBackToMainPage);
+    connect(eventPage2, &EventPage::goBackToMainPage, this, &TicketsManager::goBackToMainPage);
 
     stackedWidget->addWidget(mainPage);
     stackedWidget->addWidget(eventPage1);
@@ -31,6 +33,11 @@ void TicketsManager::openEventPage1()
 void TicketsManager::openEventPage2()
 {
     stackedWidget->setCurrentWidget(eventPage2);
+}
+
+void TicketsManager::goBackToMainPage()
+{
+    stackedWidget->setCurrentWidget(mainPage);
 }
 
 TicketsManager::~TicketsManager()

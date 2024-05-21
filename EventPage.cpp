@@ -12,13 +12,15 @@ void EventPage::setupButtons()
     QVBoxLayout* layout = new QVBoxLayout(this);
 
     QPushButton* addTicketButton = createStyledButton(QString::fromUtf8(u8"Dodaj bilet"));
-    QPushButton* ticketDatabaseButton = createStyledButton(QString::fromUtf8(u8"Lista bilet\u00F3w"));
+    QPushButton* ticketListButton = createStyledButton(QString::fromUtf8(u8"Lista bilet\u00F3w"));
     QPushButton* loadFromFileButton = createStyledButton(QString::fromUtf8(u8"Wczytaj z pliku"));
     QPushButton* saveToFileButton = createStyledButton(QString::fromUtf8(u8"Zapisz do pliku"));
     QPushButton* backButton = createStyledButton(QString::fromUtf8(u8"Powr\u00F3t"));
 
+    connect(backButton, &QPushButton::clicked, this, &EventPage::goBackToMainPage);
+
     layout->addWidget(addTicketButton);
-    layout->addWidget(ticketDatabaseButton);
+    layout->addWidget(ticketListButton);
     layout->addWidget(loadFromFileButton);
     layout->addWidget(saveToFileButton);
     layout->addWidget(backButton); 
