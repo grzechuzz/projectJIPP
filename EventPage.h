@@ -5,7 +5,7 @@
 
 class EventPage : public QWidget
 {
-	Q_OBJECT;
+	Q_OBJECT
 
 public:
 	explicit EventPage(QWidget* parent = nullptr);
@@ -16,6 +16,8 @@ signals:
 private:
 	void setupButtons();
 	QPushButton* createStyledButton(const QString& text);
+
+	void addTicket();
 
 };
 
