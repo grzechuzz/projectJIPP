@@ -15,7 +15,7 @@ void EventPage::setupButtons()
     QPushButton* ticketListButton = createStyledButton(QString::fromUtf8(u8"Lista bilet\u00F3w"));
     QPushButton* loadFromFileButton = createStyledButton(QString::fromUtf8(u8"Wczytaj z pliku"));
     QPushButton* saveToFileButton = createStyledButton(QString::fromUtf8(u8"Zapisz do pliku"));
-    QPushButton* backButton = createStyledButton(QString::fromUtf8(u8"Powr\u00F3t"));
+    QPushButton* backButton = createStyledButton(QString::fromUtf8(u8"Powrot"));
 
     connect(addTicketButton, &QPushButton::clicked, this, &EventPage::addTicket);
     connect(backButton, &QPushButton::clicked, this, &EventPage::goBackToMainPage);
