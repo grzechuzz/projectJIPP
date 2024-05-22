@@ -2,6 +2,8 @@
 
 #include <QWidget>
 #include <QPushButton>
+#include <vector>
+#include "Ticket.h"
 
 class EventPage : public QWidget
 {
@@ -13,11 +15,12 @@ public:
 signals:
 	void goBackToMainPage();
 
+private slots:
+	void addTicket();
+
 private:
 	void setupButtons();
 	QPushButton* createStyledButton(const QString& text);
-
-	void addTicket();
-
+	std::vector<Ticket*> tickets;
 };
 

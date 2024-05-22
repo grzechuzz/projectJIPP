@@ -4,6 +4,7 @@
 #include "Person.h"
 
 class Ticket {
+
 protected:
     Person ticketHolder;
     double price;
@@ -11,7 +12,6 @@ protected:
     int seat;
 
 public:
-
     Ticket(const Person& tickerHolder, double price, const std::string& sector, int seat);
     virtual std::string showInfo() const;
     const Person& getTicketHolder() const;

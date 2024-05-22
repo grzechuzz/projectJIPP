@@ -1,6 +1,7 @@
 #include "EventPage.h"
 #include "AddTicketDialog.h"
 #include <QVBoxLayout>
+#include <QMessageBox>
 
 EventPage::EventPage(QWidget* parent)
 	: QWidget(parent)
@@ -64,5 +65,12 @@ QPushButton* EventPage::createStyledButton(const QString& text)
 void EventPage::addTicket()
 {
     AddTicketDialog dialog(this);
-    dialog.exec();
+    if (dialog.exec() == QDialog::Accepted) {
+        Ticket* ticket = dialog.getTicket();
+        if (ticket) {
+            tickets.push_back(ticket);
+            const Person& holder = ticket->getTicketHolder();
+            QMessageBox::information(this, "Bilet dodany", "Dodano bilet dla " + QString::fromStdString(holder.getName()) + " " + QString::fromStdString(holder.getSurname()));
+        }
+    }
 }
