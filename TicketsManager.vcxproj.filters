@@ -43,9 +43,21 @@
     <ClCompile Include="MainPage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="EventPage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AddTicketDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="MainPage.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="EventPage.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="AddTicketDialog.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

@@ -1,4 +1,5 @@
 #include "EventPage.h"
+#include "AddTicketDialog.h"
 #include <QVBoxLayout>
 
 EventPage::EventPage(QWidget* parent)
@@ -10,13 +11,13 @@ EventPage::EventPage(QWidget* parent)
 void EventPage::setupButtons()
 {
     QVBoxLayout* layout = new QVBoxLayout(this);
-
     QPushButton* addTicketButton = createStyledButton(QString::fromUtf8(u8"Dodaj bilet"));
     QPushButton* ticketListButton = createStyledButton(QString::fromUtf8(u8"Lista bilet\u00F3w"));
     QPushButton* loadFromFileButton = createStyledButton(QString::fromUtf8(u8"Wczytaj z pliku"));
     QPushButton* saveToFileButton = createStyledButton(QString::fromUtf8(u8"Zapisz do pliku"));
     QPushButton* backButton = createStyledButton(QString::fromUtf8(u8"Powr\u00F3t"));
 
+    connect(addTicketButton, &QPushButton::clicked, this, &EventPage::addTicket);
     connect(backButton, &QPushButton::clicked, this, &EventPage::goBackToMainPage);
 
     layout->addWidget(addTicketButton);
@@ -32,7 +33,8 @@ void EventPage::setupButtons()
 }
 
 
-QPushButton* EventPage::createStyledButton(const QString& text) {
+QPushButton* EventPage::createStyledButton(const QString& text)
+{
     QPushButton* button = new QPushButton(text, this);
     button->setFixedSize(250, 80); 
     button->setFont(QFont("Arial", 16, QFont::Bold)); 
@@ -57,4 +59,10 @@ QPushButton* EventPage::createStyledButton(const QString& text) {
     button->setCursor(Qt::PointingHandCursor); 
 
     return button;
+}
+
+void EventPage::addTicket()
+{
+    AddTicketDialog dialog(this);
+    dialog.exec();
 }
