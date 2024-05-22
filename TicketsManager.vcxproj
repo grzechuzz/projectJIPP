@@ -94,6 +94,8 @@
   <ItemGroup>
     <ClCompile Include="DiscountTicket.cpp" />
     <ClCompile Include="NormalTicket.cpp" />
+    <ClCompile Include="RemoveTicketDialog.cpp" />
+    <ClCompile Include="TicketLoader.cpp" />
     <ClCompile Include="VIPTicket.cpp" />
     <QtRcc Include="TicketsManager.qrc" />
     <QtUic Include="TicketsManager.ui" />
@@ -119,7 +121,9 @@
     <ClInclude Include="DiscountTicket.h" />
     <ClInclude Include="NormalTicket.h" />
     <ClInclude Include="Person.h" />
+    <QtMoc Include="RemoveTicketDialog.h" />
     <ClInclude Include="Ticket.h" />
+    <ClInclude Include="TicketLoader.h" />
     <ClInclude Include="VIPTicket.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

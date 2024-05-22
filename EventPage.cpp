@@ -1,5 +1,7 @@
 #include "EventPage.h"
+#include "TicketLoader.h"
 #include "AddTicketDialog.h"
+#include "RemoveTicketDialog.h"
 #include "DiscountTicket.h"
 #include "NormalTicket.h"
 #include "VIPTicket.h"
@@ -27,18 +29,21 @@ void EventPage::setupButtons()
     QPushButton* ticketListButton = createStyledButton(QString::fromUtf8(u8"Lista biletow"));
     QPushButton* loadFromFileButton = createStyledButton(QString::fromUtf8(u8"Wczytaj z pliku"));
     QPushButton* saveToFileButton = createStyledButton(QString::fromUtf8(u8"Zapisz do pliku"));
+    QPushButton* removeTicketButton = createStyledButton(QString::fromUtf8(u8"Usun bilet"));
     QPushButton* backButton = createStyledButton(QString::fromUtf8(u8"Powrot"));
 
     connect(addTicketButton, &QPushButton::clicked, this, &EventPage::addTicket);
     connect(ticketListButton, &QPushButton::clicked, this, &EventPage::showTicketsList);
     connect(loadFromFileButton, &QPushButton::clicked, this, &EventPage::loadTicketsFromFile);
     connect(saveToFileButton, &QPushButton::clicked, this, &EventPage::saveTicketsToFile);
+    connect(removeTicketButton, &QPushButton::clicked, this, &EventPage::removeTicket);
     connect(backButton, &QPushButton::clicked, this, &EventPage::goBackToMainPage);
 
     layout->addWidget(addTicketButton);
     layout->addWidget(ticketListButton);
     layout->addWidget(loadFromFileButton);
     layout->addWidget(saveToFileButton);
+    layout->addWidget(removeTicketButton);
     layout->addWidget(backButton);
 
     layout->setAlignment(Qt::AlignCenter);
@@ -151,42 +156,13 @@ void EventPage::loadTicketsFromFile()
         return;
     }
 
-    std::ifstream file(fileName.toStdString());
-    if (!file.is_open()) {
-        QMessageBox::warning(this, "Blad", "Nie mozna otworzyc pliku");
-        return;
+    TicketLoader ticketLoader;
+    std::vector<Ticket*> tickets;
+
+    if (ticketLoader.loadTicketsFromFile(fileName, tickets)) {
+        this->tickets = tickets;
+        QMessageBox::information(this, "Wczytano bilety", "Bilety zostaly wczytane z pliku.");
     }
-
-    std::string line;
-    while (std::getline(file, line)) {
-        std::istringstream iss(line);
-        std::string name, surname, pesel, ticketType;
-        int age;
-
-        if (!(iss >> name >> surname >> age >> pesel >> ticketType)) {
-            continue; 
-        }
-
-        Person person(name, surname, age, pesel);
-        Ticket* ticket = nullptr;
-
-        if (ticketType == "VIP") {
-            ticket = new VIPTicket(person, 400.0, "unknown", 0);
-        }
-        else if (ticketType == "Normalny") {
-            ticket = new NormalTicket(person, 120.0, "unknown", 0);
-        }
-        else if (ticketType == "Ulgowy") {
-            ticket = new DiscountTicket(person, 60.0, "unknown", 0);
-        }
-
-        if (ticket) {
-            tickets.push_back(ticket);
-        }
-    }
-
-    file.close();
-    QMessageBox::information(this, "Wczytano bilety", "Bilety zostaly wczytane z pliku.");
 }
 
 void EventPage::saveTicketsToFile()
@@ -225,4 +201,24 @@ void EventPage::saveTicketsToFile()
 
     file.close();
     QMessageBox::information(this, "Zapisano bilety", "Bilety zostaly zapisane do pliku.");
+}
+
+void EventPage::removeTicket()
+{
+    RemoveTicketDialog dialog(this);
+    if (dialog.exec() == QDialog::Accepted) {
+        QString pesel = dialog.getPesel();
+        auto it = std::find_if(tickets.begin(), tickets.end(), [&](const Ticket* ticket) {
+            return ticket->getTicketHolder().getPesel() == pesel.toStdString();
+            });
+
+        if (it != tickets.end()) {
+            delete* it;
+            tickets.erase(it);
+            QMessageBox::information(this, "Usunieto bilet", "Bilet zostal usuniety.");
+        }
+        else {
+            QMessageBox::warning(this, "Blad", "Nie znaleziono biletu o podanym PESEL.");
+        }
+    }
 }

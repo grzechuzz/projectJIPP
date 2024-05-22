@@ -22,6 +22,7 @@ private slots:
     void loadTicketsFromFile();
     void saveTicketsToFile();
     void showTicketsList();
+    void removeTicket();
 
 private:
     void setupButtons();
