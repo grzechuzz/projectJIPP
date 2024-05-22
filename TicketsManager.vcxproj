@@ -95,6 +95,11 @@
     <QtRcc Include="TicketsManager.qrc" />
     <QtUic Include="TicketsManager.ui" />
     <QtMoc Include="TicketsManager.h" />
+    <ClCompile Include="..\iajsdm\DiscountTicket.cpp" />
+    <ClCompile Include="..\iajsdm\NormalTicket.cpp" />
+    <ClCompile Include="..\iajsdm\Person.cpp" />
+    <ClCompile Include="..\iajsdm\Ticket.cpp" />
+    <ClCompile Include="..\iajsdm\VIPTicket.cpp" />
     <ClCompile Include="AddTicketDialog.cpp" />
     <ClCompile Include="EventPage.cpp" />
     <ClCompile Include="MainPage.cpp" />
@@ -109,6 +114,13 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="AddTicketDialog.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\iajsdm\DiscountTicket.h" />
+    <ClInclude Include="..\iajsdm\NormalTicket.h" />
+    <ClInclude Include="..\iajsdm\Person.h" />
+    <ClInclude Include="..\iajsdm\Ticket.h" />
+    <ClInclude Include="..\iajsdm\VIPTicket.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
