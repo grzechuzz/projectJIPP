@@ -2,6 +2,7 @@
 
 #include <QWidget>
 #include <QPushButton>
+#include <QTableWidget>
 #include <vector>
 #include "Ticket.h"
 
@@ -18,10 +19,14 @@ signals:
 
 private slots:
     void addTicket();
+    void loadTicketsFromFile();
+    void saveTicketsToFile();
+    void showTicketsList();
 
 private:
     void setupButtons();
     QPushButton* createStyledButton(const QString& text);
     bool isConcert;
     std::vector<Ticket*> tickets;
+    QTableWidget* tableWidget;
 };
