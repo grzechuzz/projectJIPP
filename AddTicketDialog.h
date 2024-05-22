@@ -4,6 +4,7 @@
 #include <QComboBox>
 #include <QLineEdit>
 #include <QPushButton>
+#include "Ticket.h"
 
 class AddTicketDialog : public QDialog
 {
@@ -11,6 +12,10 @@ class AddTicketDialog : public QDialog
 
 public:
 	AddTicketDialog(QWidget* parent = nullptr);
+	Ticket* getTicket() const;
+
+private slots:
+	void accept() override;
 
 private:
 	QComboBox* ticketTypeComboBox;
@@ -20,5 +25,7 @@ private:
 	QLineEdit* peselLineEdit;
 	QLineEdit* sectorLineEdit;
 	QLineEdit* seatLineEdit;
+
+	Ticket* createdTicket;
 };
 

@@ -4,6 +4,5 @@ DiscountTicket::DiscountTicket(const Person& ticketHolder, double price, const s
     : Ticket(ticketHolder, price, sector, seat) {}
 
 std::string DiscountTicket::showInfo() const {
-    return "Bilet ulgowy\n" +
-        Ticket::showInfo();
+    return Ticket::showInfo();
 }

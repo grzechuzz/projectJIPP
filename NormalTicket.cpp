@@ -4,6 +4,5 @@ NormalTicket::NormalTicket(const Person& ticketHolder, double price, const std::
     : Ticket(ticketHolder, price, sector, seat) {}
 
 std::string NormalTicket::showInfo() const {
-    return "Bilet normalny\n" +
-        Ticket::showInfo();
+    return Ticket::showInfo();
 }

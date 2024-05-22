@@ -1,4 +1,7 @@
 #include "AddTicketDialog.h"
+#include "NormalTicket.h"
+#include "DiscountTicket.h"
+#include "VIPTicket.h"
 #include <QVBoxLayout>
 #include <QFormLayout>
 #include <QMessageBox>
@@ -6,7 +9,7 @@
 #include <QRegularExpressionValidator>
 
 AddTicketDialog::AddTicketDialog(QWidget* parent)
-    : QDialog(parent)
+    : QDialog(parent), createdTicket(nullptr)
 {
     setWindowTitle("Dodaj bilet");
 
@@ -46,7 +49,43 @@ AddTicketDialog::AddTicketDialog(QWidget* parent)
     mainLayout->addLayout(formLayout);
 
     QPushButton* addButton = new QPushButton("Dodaj", this);
+    connect(addButton, &QPushButton::clicked, this, &AddTicketDialog::accept);
     mainLayout->addWidget(addButton);
 
-    setFixedSize(400, 250);
+    setFixedSize(400, 300);
+}
+
+void AddTicketDialog::accept()
+{
+    QString name = nameLineEdit->text();
+    QString surname = surnameLineEdit->text();
+    int age = ageLineEdit->text().toInt();
+    QString pesel = peselLineEdit->text();
+    QString sector = sectorLineEdit->text();
+    int seat = seatLineEdit->text().toInt();
+
+    if (pesel.length() != 11) {
+        QMessageBox::warning(this, "Blad", "PESEL musi miec dokladnie 11 cyfr.");
+        return;
+    }
+
+    Person person(name.toStdString(), surname.toStdString(), age, pesel.toStdString());
+    std::string ticketType = ticketTypeComboBox->currentText().toStdString();
+
+    if (ticketType == "Ulgowy") {
+        createdTicket = new DiscountTicket(person, 60.0, sector.toStdString(), seat);
+    }
+    else if (ticketType == "Normalny") {
+        createdTicket = new NormalTicket(person, 120.0, sector.toStdString(), seat);
+    }
+    else if (ticketType == "VIP") {
+        createdTicket = new VIPTicket(person, 400.0, sector.toStdString(), seat);
+    }
+
+    QDialog::accept();
+}
+
+Ticket* AddTicketDialog::getTicket() const
+{
+    return createdTicket;
 }
