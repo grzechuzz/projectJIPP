@@ -11,19 +11,16 @@ class TicketsManager : public QMainWindow
     Q_OBJECT
 
 public:
-    TicketsManager(QWidget *parent = nullptr);
+    TicketsManager(QWidget* parent = nullptr);
     ~TicketsManager();
-    
+
 private slots:
-    void openEventPage1();
-    void openEventPage2();
+    void openEventPage(bool isConcert);
     void goBackToMainPage();
 
 private:
     Ui::TicketsManagerClass ui;
     QStackedWidget* stackedWidget;
     MainPage* mainPage;
-    EventPage* eventPage1;
-    EventPage* eventPage2;
-
+    EventPage* eventPage;
 };

@@ -7,20 +7,21 @@
 
 class EventPage : public QWidget
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	explicit EventPage(QWidget* parent = nullptr);
+    explicit EventPage(QWidget* parent = nullptr);
+    void setEventType(bool isConcert);
 
 signals:
-	void goBackToMainPage();
+    void goBackToMainPage();
 
 private slots:
-	void addTicket();
+    void addTicket();
 
 private:
-	void setupButtons();
-	QPushButton* createStyledButton(const QString& text);
-	std::vector<Ticket*> tickets;
+    void setupButtons();
+    QPushButton* createStyledButton(const QString& text);
+    bool isConcert;
+    std::vector<Ticket*> tickets;
 };
-

@@ -1,38 +1,31 @@
 #include "TicketsManager.h"
 
-TicketsManager::TicketsManager(QWidget *parent)
+TicketsManager::TicketsManager(QWidget* parent)
     : QMainWindow(parent),
-      stackedWidget(new QStackedWidget(this)),
-      mainPage(new MainPage(this)),
-      eventPage1(new EventPage(this)),
-      eventPage2(new EventPage(this))
+    stackedWidget(new QStackedWidget(this)),
+    mainPage(new MainPage(this)),
+    eventPage(new EventPage(this))  // U¿ywamy jednego EventPage
 {
     ui.setupUi(this);
 
     resize(1100, 1000);
     setStyleSheet("QMainWindow { background-image: url(:/TicketsManager/background.jpg); background-position: center; background-repeat: no-repeat; background-size: cover; }");
 
-    
-    connect(mainPage, &MainPage::event1Selected, this, &TicketsManager::openEventPage1);
-    connect(mainPage, &MainPage::event2Selected, this, &TicketsManager::openEventPage2);
-    connect(eventPage1, &EventPage::goBackToMainPage, this, &TicketsManager::goBackToMainPage);
-    connect(eventPage2, &EventPage::goBackToMainPage, this, &TicketsManager::goBackToMainPage);
+    connect(mainPage, &MainPage::event1Selected, this, &TicketsManager::openEventPage);
+    connect(mainPage, &MainPage::event2Selected, this, &TicketsManager::openEventPage);
+
+    connect(eventPage, &EventPage::goBackToMainPage, this, &TicketsManager::goBackToMainPage);
 
     stackedWidget->addWidget(mainPage);
-    stackedWidget->addWidget(eventPage1);
-    stackedWidget->addWidget(eventPage2);
+    stackedWidget->addWidget(eventPage);
 
     setCentralWidget(stackedWidget);
 }
 
-void TicketsManager::openEventPage1()
+void TicketsManager::openEventPage(bool isConcert)
 {
-    stackedWidget->setCurrentWidget(eventPage1);
-}
-
-void TicketsManager::openEventPage2()
-{
-    stackedWidget->setCurrentWidget(eventPage2);
+    eventPage->setEventType(isConcert);  
+    stackedWidget->setCurrentWidget(eventPage);
 }
 
 void TicketsManager::goBackToMainPage()

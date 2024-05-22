@@ -8,24 +8,25 @@
 
 class AddTicketDialog : public QDialog
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	AddTicketDialog(QWidget* parent = nullptr);
-	Ticket* getTicket() const;
+    AddTicketDialog(QWidget* parent = nullptr, bool isConcert = false);
+    Ticket* getTicket() const;
 
 private slots:
-	void accept() override;
+    void accept() override;
+    void updateSectors();
 
 private:
-	QComboBox* ticketTypeComboBox;
-	QLineEdit* nameLineEdit;
-	QLineEdit* surnameLineEdit;
-	QLineEdit* ageLineEdit;
-	QLineEdit* peselLineEdit;
-	QLineEdit* sectorLineEdit;
-	QLineEdit* seatLineEdit;
+    QComboBox* ticketTypeComboBox;
+    QComboBox* sectorComboBox;
+    QLineEdit* nameLineEdit;
+    QLineEdit* surnameLineEdit;
+    QLineEdit* ageLineEdit;
+    QLineEdit* peselLineEdit;
+    QLineEdit* seatLineEdit;
 
-	Ticket* createdTicket;
+    Ticket* createdTicket;
+    bool isConcert;  // Dodajemy pole isConcert
 };
-
