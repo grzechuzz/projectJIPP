@@ -92,12 +92,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DiscountTicket.cpp" />
+    <ClCompile Include="NormalTicket.cpp" />
+    <ClCompile Include="VIPTicket.cpp" />
     <QtRcc Include="TicketsManager.qrc" />
     <QtUic Include="TicketsManager.ui" />
     <QtMoc Include="TicketsManager.h" />
     <ClCompile Include="AddTicketDialog.cpp" />
     <ClCompile Include="EventPage.cpp" />
     <ClCompile Include="MainPage.cpp" />
+    <ClCompile Include="Person.cpp" />
+    <ClCompile Include="Ticket.cpp" />
     <ClCompile Include="TicketsManager.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -109,6 +114,13 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="AddTicketDialog.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DiscountTicket.h" />
+    <ClInclude Include="NormalTicket.h" />
+    <ClInclude Include="Person.h" />
+    <ClInclude Include="Ticket.h" />
+    <ClInclude Include="VIPTicket.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
