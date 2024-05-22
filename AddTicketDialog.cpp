@@ -8,8 +8,8 @@
 #include <QRegularExpression>
 #include <QRegularExpressionValidator>
 
-AddTicketDialog::AddTicketDialog(QWidget* parent)
-    : QDialog(parent), createdTicket(nullptr)
+AddTicketDialog::AddTicketDialog(QWidget* parent, bool isConcert)
+    : QDialog(parent), createdTicket(nullptr), isConcert(isConcert)
 {
     setWindowTitle("Dodaj bilet");
 
@@ -19,22 +19,24 @@ AddTicketDialog::AddTicketDialog(QWidget* parent)
     ticketTypeComboBox->addItem("Ulgowy");
     ticketTypeComboBox->addItem("Normalny");
     ticketTypeComboBox->addItem("VIP");
+    connect(ticketTypeComboBox, &QComboBox::currentTextChanged, this, &AddTicketDialog::updateSectors);
+
+    sectorComboBox = new QComboBox(this);
 
     nameLineEdit = new QLineEdit(this);
     surnameLineEdit = new QLineEdit(this);
     ageLineEdit = new QLineEdit(this);
     peselLineEdit = new QLineEdit(this);
-    sectorLineEdit = new QLineEdit(this);
     seatLineEdit = new QLineEdit(this);
 
     QRegularExpression regExp("\\d{11}");
     peselLineEdit->setValidator(new QRegularExpressionValidator(regExp, this));
     peselLineEdit->setMaxLength(11);
 
-    QRegularExpression ageRegExp("\\d{1,3}"); 
+    QRegularExpression ageRegExp("\\d{1,3}");
     ageLineEdit->setValidator(new QRegularExpressionValidator(ageRegExp, this));
 
-    QRegularExpression seatRegExp("\\d{1,4}"); 
+    QRegularExpression seatRegExp("\\d{1,4}");
     seatLineEdit->setValidator(new QRegularExpressionValidator(seatRegExp, this));
 
     QFormLayout* formLayout = new QFormLayout;
@@ -43,7 +45,7 @@ AddTicketDialog::AddTicketDialog(QWidget* parent)
     formLayout->addRow("Nazwisko:", surnameLineEdit);
     formLayout->addRow("Wiek:", ageLineEdit);
     formLayout->addRow("PESEL:", peselLineEdit);
-    formLayout->addRow("Sektor:", sectorLineEdit);
+    formLayout->addRow("Sektor:", sectorComboBox);
     formLayout->addRow("Miejsce:", seatLineEdit);
 
     mainLayout->addLayout(formLayout);
@@ -53,6 +55,31 @@ AddTicketDialog::AddTicketDialog(QWidget* parent)
     mainLayout->addWidget(addButton);
 
     setFixedSize(400, 300);
+
+    updateSectors(); 
+}
+
+void AddTicketDialog::updateSectors()
+{
+    QString ticketType = ticketTypeComboBox->currentText();
+    sectorComboBox->clear();
+
+    if (isConcert) {
+        if (ticketType == "VIP") {
+            sectorComboBox->addItems({ "B", "D", "F", "H", "GroundVIP" });
+        }
+        else {
+            sectorComboBox->addItems({ "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "Ground" });
+        }
+    }
+    else {
+        if (ticketType == "VIP") {
+            sectorComboBox->addItems({ "B", "D", "F", "H" });
+        }
+        else {
+            sectorComboBox->addItems({ "A", "B", "C", "D", "E", "F", "G", "H", "I", "J" });
+        }
+    }
 }
 
 void AddTicketDialog::accept()
@@ -61,7 +88,7 @@ void AddTicketDialog::accept()
     QString surname = surnameLineEdit->text();
     int age = ageLineEdit->text().toInt();
     QString pesel = peselLineEdit->text();
-    QString sector = sectorLineEdit->text();
+    QString sector = sectorComboBox->currentText();
     int seat = seatLineEdit->text().toInt();
 
     if (pesel.length() != 11) {
