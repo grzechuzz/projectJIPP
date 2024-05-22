@@ -40,10 +40,10 @@ bool TicketLoader::loadTicketsFromFile(const QString& fileName, std::vector<Tick
 
 bool TicketLoader::processLine(const std::string& line, std::vector<Ticket*>& tickets) {
     std::istringstream iss(line);
-    std::string name, surname, pesel, ticketType;
-    int age;
+    std::string name, surname, pesel, ticketType, sector;
+    int age, place;
 
-    if (!(iss >> name >> surname >> age >> pesel >> ticketType)) {
+    if (!(iss >> name >> surname >> age >> pesel >> ticketType >> sector >> place)) {
         return false;
     }
 
@@ -51,13 +51,13 @@ bool TicketLoader::processLine(const std::string& line, std::vector<Ticket*>& ti
     Ticket* ticket = nullptr;
 
     if (ticketType == "VIP") {
-        ticket = new VIPTicket(person, 400.0, "unknown", 0);
+        ticket = new VIPTicket(person, 400.0, sector, place);
     }
     else if (ticketType == "Normalny") {
-        ticket = new NormalTicket(person, 120.0, "unknown", 0);
+        ticket = new NormalTicket(person, 120.0, sector, place);
     }
     else if (ticketType == "Ulgowy") {
-        ticket = new DiscountTicket(person, 60.0, "unknown", 0);
+        ticket = new DiscountTicket(person, 60.0, sector, place);
     }
 
     if (ticket) {
