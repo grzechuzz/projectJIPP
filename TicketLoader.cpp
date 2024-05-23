@@ -15,7 +15,7 @@ bool TicketLoader::loadTicketsFromFile(const QString& fileName, std::vector<Tick
     try {
         std::ifstream file(fileName.toStdString());
         if (!file.is_open()) {
-            throw std::runtime_error("Nie mozna otworzyc pliku");
+            throw std::runtime_error("Nie mozna otworzy\u0107 pliku");
         }
 
         if (file.peek() == std::ifstream::traits_type::eof()) {
@@ -33,7 +33,7 @@ bool TicketLoader::loadTicketsFromFile(const QString& fileName, std::vector<Tick
         return true;
     }
     catch (const std::runtime_error& e) {
-        QMessageBox::warning(nullptr, "Blad", e.what());
+        QMessageBox::warning(nullptr, "Bl\u0105d", e.what());
         return false;
     }
 }
