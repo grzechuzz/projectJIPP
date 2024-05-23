@@ -28,5 +28,5 @@ private:
     QLineEdit* seatLineEdit;
 
     Ticket* createdTicket;
-    bool isConcert;  // Dodajemy pole isConcert
+    bool isConcert;  
 };
