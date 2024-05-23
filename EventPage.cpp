@@ -91,12 +91,17 @@ void EventPage::addTicket()
     if (dialog.exec() == QDialog::Accepted) {
         Ticket* ticket = dialog.getTicket();
         if (ticket) {
-            tickets.push_back(ticket);
+            if (isConcert) {
+                concertTickets.push_back(ticket);
+            } else {
+                matchTickets.push_back(ticket);
+            }
             const Person& holder = ticket->getTicketHolder();
             QMessageBox::information(this, "Bilet dodany", "Dodano bilet dla " + QString::fromStdString(holder.getName()) + " " + QString::fromStdString(holder.getSurname()));
         }
     }
 }
+
 
 void EventPage::showTicketsList()
 {
@@ -106,13 +111,14 @@ void EventPage::showTicketsList()
 
     QVBoxLayout* layout = new QVBoxLayout(dialog);
     QTableWidget* tableWidget = new QTableWidget(dialog);
-    tableWidget->setColumnCount(6); 
+    tableWidget->setColumnCount(6);
     tableWidget->setHorizontalHeaderLabels({ "Imie", "Nazwisko", "PESEL", "Wiek", "Typ biletu", "Opis biletu" });
     tableWidget->horizontalHeader()->setStretchLastSection(true);
     tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
     tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
     tableWidget->setSelectionMode(QAbstractItemView::SingleSelection);
 
+    const std::vector<Ticket*>& tickets = isConcert ? concertTickets : matchTickets;
     tableWidget->setRowCount(tickets.size());
 
     for (int i = 0; i < tickets.size(); ++i) {
@@ -149,6 +155,7 @@ void EventPage::showTicketsList()
     dialog->exec();
 }
 
+
 void EventPage::loadTicketsFromFile()
 {
     QString fileName = QFileDialog::getOpenFileName(this, "Wybierz plik", "", "Pliki tekstowe (*.txt);;Wszystkie pliki (*.*)");
@@ -157,13 +164,13 @@ void EventPage::loadTicketsFromFile()
     }
 
     TicketLoader ticketLoader;
-    std::vector<Ticket*> tickets;
+    std::vector<Ticket*>& tickets = isConcert ? concertTickets : matchTickets;
 
     if (ticketLoader.loadTicketsFromFile(fileName, tickets)) {
-        this->tickets = tickets;
         QMessageBox::information(this, "Wczytano bilety", "Bilety zostaly wczytane z pliku.");
     }
 }
+
 
 void EventPage::saveTicketsToFile()
 {
@@ -177,6 +184,8 @@ void EventPage::saveTicketsToFile()
         QMessageBox::warning(this, "Blad", "Nie mozna zapisac pliku");
         return;
     }
+
+    const std::vector<Ticket*>& tickets = isConcert ? concertTickets : matchTickets;
 
     for (const Ticket* ticket : tickets) {
         const Person& holder = ticket->getTicketHolder();
@@ -205,11 +214,15 @@ void EventPage::saveTicketsToFile()
     QMessageBox::information(this, "Zapisano bilety", "Bilety zostaly zapisane do pliku.");
 }
 
+
 void EventPage::removeTicket()
 {
     RemoveTicketDialog dialog(this);
     if (dialog.exec() == QDialog::Accepted) {
         QString pesel = dialog.getPesel();
+
+        std::vector<Ticket*>& tickets = isConcert ? concertTickets : matchTickets;
+
         auto it = std::find_if(tickets.begin(), tickets.end(), [&](const Ticket* ticket) {
             return ticket->getTicketHolder().getPesel() == pesel.toStdString();
             });

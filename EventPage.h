@@ -28,6 +28,7 @@ private:
     void setupButtons();
     QPushButton* createStyledButton(const QString& text);
     bool isConcert;
-    std::vector<Ticket*> tickets;
+    std::vector<Ticket*> concertTickets;
+    std::vector<Ticket*> matchTickets;
     QTableWidget* tableWidget;
 };
