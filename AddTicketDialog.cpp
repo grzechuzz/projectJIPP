@@ -87,15 +87,23 @@ void AddTicketDialog::accept()
 {
     QString name = nameLineEdit->text();
     QString surname = surnameLineEdit->text();
-    int age = ageLineEdit->text().toInt();
+    QString ageText = ageLineEdit->text();
     QString pesel = peselLineEdit->text();
     QString sector = sectorComboBox->currentText();
-    int seat = seatLineEdit->text().toInt();
+    QString seatText = seatLineEdit->text();
+
+    if (name.isEmpty() || surname.isEmpty() || ageText.isEmpty() || pesel.isEmpty() || sector.isEmpty() || seatText.isEmpty()) {
+        QMessageBox::warning(this, "B\u0142\u0105d", "Wszystkie pola musz\u0105 by\u0107 wype\u0142nione.");
+        return;
+    }
 
     if (pesel.length() != 11) {
         QMessageBox::warning(this, "Bl\u0105d", "PESEL musi mie\u0107 dokladnie 11 cyfr.");
         return;
     }
+
+    int age = ageText.toInt();
+    int seat = seatText.toInt();
 
     try {
         if (ticketTypeComboBox->currentText() == "VIP" && age < 18) {

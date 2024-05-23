@@ -12,7 +12,7 @@ MainPage::MainPage(QWidget* parent)
 
     QString eventText1 = "<h2 style='color:white;'>Ekstraliga 2025/2026</h2>"
         "<h1 style='color:white;'>TSK <img src=':/TicketsManager/tsk.png' width='30' height='20'/> vs. <img src=':/TicketsManager/zt.png' width='30' height='20'/> ZT</h1>"
-        "<h3 style='color:white;'>04.09.2025 18:00 <span style='color:lightgray;'>STADION MIEJSKI - POZNAN</span></h3>";
+        "<h3 style='color:white;'>04.09.2025 18:00 <span style='color:lightgray;'>STADION MIEJSKI - POZNA\u0143</span></h3>";
     QLabel* event1 = createEventDesign(":/TicketsManager/event1.png", eventText1, false, &MainPage::event1Selected); // Mecz
     mainLayout->addWidget(event1);
 
@@ -20,7 +20,7 @@ MainPage::MainPage(QWidget* parent)
 
     QString eventText2 = "<h2 style='color:white;'>Sentio Tour</h2>"
         "<h1 style='color:white;'>Marcin Garrix Show <img src=':/TicketsManager/sentio.jpg' width='30' height='20'/></h1>"
-        "<h3 style='color:white;'>10.11.2025 21:00 <span style='color:lightgray;'>TAURON ARENA KRAKOW</span></h3>";
+        "<h3 style='color:white;'>10.11.2025 21:00 <span style='color:lightgray;'>TAURON ARENA KRAK\u00D3W</span></h3>";
     QLabel* event2 = createEventDesign(":/TicketsManager/event2.png", eventText2, true, &MainPage::event2Selected); // Koncert
     mainLayout->addWidget(event2);
 }
