@@ -5,5 +5,5 @@ VIPTicket::VIPTicket(const Person& ticketHolder, double price, const std::string
 
 std::string VIPTicket::showInfo() const {
     return Ticket::showInfo() +
-           "\nCatering: przekaski + napoje + alkohol";
+        "\nCatering: przek\u0105ski + napoje + alkohol";
 }

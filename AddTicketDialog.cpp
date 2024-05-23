@@ -42,7 +42,7 @@ AddTicketDialog::AddTicketDialog(QWidget* parent, bool isConcert)
 
     QFormLayout* formLayout = new QFormLayout;
     formLayout->addRow("Typ biletu:", ticketTypeComboBox);
-    formLayout->addRow("Imie:", nameLineEdit);
+    formLayout->addRow("Imi\u0119:", nameLineEdit);
     formLayout->addRow("Nazwisko:", surnameLineEdit);
     formLayout->addRow("Wiek:", ageLineEdit);
     formLayout->addRow("PESEL:", peselLineEdit);
@@ -87,19 +87,27 @@ void AddTicketDialog::accept()
 {
     QString name = nameLineEdit->text();
     QString surname = surnameLineEdit->text();
-    int age = ageLineEdit->text().toInt();
+    QString ageText = ageLineEdit->text();
     QString pesel = peselLineEdit->text();
     QString sector = sectorComboBox->currentText();
-    int seat = seatLineEdit->text().toInt();
+    QString seatText = seatLineEdit->text();
 
-    if (pesel.length() != 11) {
-        QMessageBox::warning(this, "Blad", "PESEL musi miec dokladnie 11 cyfr.");
+    if (name.isEmpty() || surname.isEmpty() || ageText.isEmpty() || pesel.isEmpty() || sector.isEmpty() || seatText.isEmpty()) {
+        QMessageBox::warning(this, "B\u0142\u0105d", "Wszystkie pola musz\u0105 by\u0107 wype\u0142nione.");
         return;
     }
 
+    if (pesel.length() != 11) {
+        QMessageBox::warning(this, "Bl\u0105d", "PESEL musi mie\u0107 dokladnie 11 cyfr.");
+        return;
+    }
+
+    int age = ageText.toInt();
+    int seat = seatText.toInt();
+
     try {
         if (ticketTypeComboBox->currentText() == "VIP" && age < 18) {
-            throw AgeException("Bilet VIP przeznaczony tylko dla pelnoletnich.");
+            throw AgeException("Bilet VIP przeznaczony tylko dla pe\u0142noletnich.");
         }
 
         Person person(name.toStdString(), surname.toStdString(), age, pesel.toStdString());
@@ -118,7 +126,7 @@ void AddTicketDialog::accept()
         QDialog::accept();
     }
     catch (const AgeException& e) {
-        QMessageBox::warning(this, "Blad", e.what());
+        QMessageBox::warning(this, "Bl\u0105d", e.what());
     }
 
 

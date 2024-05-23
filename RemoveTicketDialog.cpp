@@ -10,7 +10,7 @@
 RemoveTicketDialog::RemoveTicketDialog(QWidget* parent)
     : QDialog(parent), peselLineEdit(new QLineEdit(this))
 {
-    setWindowTitle("Usun bilet");
+    setWindowTitle("Usu\u0144 bilet");
 
     QVBoxLayout* layout = new QVBoxLayout(this);
 

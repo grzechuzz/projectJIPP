@@ -26,11 +26,11 @@ void EventPage::setupButtons()
 {
     QVBoxLayout* layout = new QVBoxLayout(this);
     QPushButton* addTicketButton = createStyledButton(QString::fromUtf8(u8"Dodaj bilet"));
-    QPushButton* ticketListButton = createStyledButton(QString::fromUtf8(u8"Lista biletow"));
+    QPushButton* ticketListButton = createStyledButton(QString::fromUtf8(u8"Lista bilet\u00F3w"));
     QPushButton* loadFromFileButton = createStyledButton(QString::fromUtf8(u8"Wczytaj z pliku"));
     QPushButton* saveToFileButton = createStyledButton(QString::fromUtf8(u8"Zapisz do pliku"));
-    QPushButton* removeTicketButton = createStyledButton(QString::fromUtf8(u8"Usun bilet"));
-    QPushButton* backButton = createStyledButton(QString::fromUtf8(u8"Powrot"));
+    QPushButton* removeTicketButton = createStyledButton(QString::fromUtf8(u8"Usu\u0144 bilet"));
+    QPushButton* backButton = createStyledButton(QString::fromUtf8(u8"Powr\u00F3t"));
 
     connect(addTicketButton, &QPushButton::clicked, this, &EventPage::addTicket);
     connect(ticketListButton, &QPushButton::clicked, this, &EventPage::showTicketsList);
@@ -106,13 +106,13 @@ void EventPage::addTicket()
 void EventPage::showTicketsList()
 {
     QDialog* dialog = new QDialog(this);
-    dialog->setWindowTitle("Lista biletow");
+    dialog->setWindowTitle("Lista bilet\u00F3w");
     dialog->resize(800, 600);
 
     QVBoxLayout* layout = new QVBoxLayout(dialog);
     QTableWidget* tableWidget = new QTableWidget(dialog);
     tableWidget->setColumnCount(6);
-    tableWidget->setHorizontalHeaderLabels({ "Imie", "Nazwisko", "PESEL", "Wiek", "Typ biletu", "Opis biletu" });
+    tableWidget->setHorizontalHeaderLabels({ "Imi\u0119", "Nazwisko", "PESEL", "Wiek", "Typ biletu", "Opis biletu" });
     tableWidget->horizontalHeader()->setStretchLastSection(true);
     tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
     tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -167,7 +167,7 @@ void EventPage::loadTicketsFromFile()
     std::vector<Ticket*>& tickets = isConcert ? concertTickets : matchTickets;
 
     if (ticketLoader.loadTicketsFromFile(fileName, tickets)) {
-        QMessageBox::information(this, "Wczytano bilety", "Bilety zostaly wczytane z pliku.");
+        QMessageBox::information(this, "Wczytano bilety", "Bilety zosta\u0142y wczytane z pliku.");
     }
 }
 
@@ -181,7 +181,7 @@ void EventPage::saveTicketsToFile()
 
     std::ofstream file(fileName.toStdString());
     if (!file.is_open()) {
-        QMessageBox::warning(this, "Blad", "Nie mozna zapisac pliku");
+        QMessageBox::warning(this, "Bl\u0105d", "Nie mozna zapisa\u0107 pliku");
         return;
     }
 
@@ -211,7 +211,7 @@ void EventPage::saveTicketsToFile()
     }
 
     file.close();
-    QMessageBox::information(this, "Zapisano bilety", "Bilety zostaly zapisane do pliku.");
+    QMessageBox::information(this, "Zapisano bilety", "Bilety zosta\u0142y zapisane do pliku.");
 }
 
 
@@ -230,10 +230,10 @@ void EventPage::removeTicket()
         if (it != tickets.end()) {
             delete* it;
             tickets.erase(it);
-            QMessageBox::information(this, "Usunieto bilet", "Bilet zostal usuniety.");
+            QMessageBox::information(this, "Usuni\u0119to bilet", "Bilet zostal usuni\u0119ty.");
         }
         else {
-            QMessageBox::warning(this, "Blad", "Nie znaleziono biletu o podanym PESEL.");
+            QMessageBox::warning(this, "Bl\u0105d", "Nie znaleziono biletu o podanym PESEL.");
         }
     }
 }
