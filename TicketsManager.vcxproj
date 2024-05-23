@@ -92,6 +92,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AgeException.cpp" />
     <ClCompile Include="DiscountTicket.cpp" />
     <ClCompile Include="NormalTicket.cpp" />
     <ClCompile Include="RemoveTicketDialog.cpp" />
@@ -118,6 +119,7 @@
     <QtMoc Include="AddTicketDialog.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AgeException.h" />
     <ClInclude Include="DiscountTicket.h" />
     <ClInclude Include="NormalTicket.h" />
     <ClInclude Include="Person.h" />
