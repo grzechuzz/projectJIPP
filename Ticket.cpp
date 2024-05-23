@@ -17,3 +17,11 @@ std::string Ticket::showInfo() const {
 const Person& Ticket::getTicketHolder() const {
     return ticketHolder;
 }
+
+const std::string& Ticket::getSector() const {
+    return sector;
+}
+
+int Ticket::getPlace() const {
+    return seat;
+}

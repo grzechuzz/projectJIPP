@@ -196,7 +196,9 @@ void EventPage::saveTicketsToFile()
             << holder.getSurname() << " "
             << holder.getAge() << " "
             << holder.getPesel() << " "
-            << ticketType << "\n";
+            << ticketType << " "
+            << ticket->getSector() << " "
+            << ticket->getPlace() << "\n";
     }
 
     file.close();
