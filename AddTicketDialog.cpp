@@ -2,6 +2,7 @@
 #include "NormalTicket.h"
 #include "DiscountTicket.h"
 #include "VIPTicket.h"
+#include "AgeException.h"
 #include <QVBoxLayout>
 #include <QFormLayout>
 #include <QMessageBox>
@@ -96,18 +97,30 @@ void AddTicketDialog::accept()
         return;
     }
 
-    Person person(name.toStdString(), surname.toStdString(), age, pesel.toStdString());
-    std::string ticketType = ticketTypeComboBox->currentText().toStdString();
+    try {
+        if (ticketTypeComboBox->currentText() == "VIP" && age < 18) {
+            throw AgeException("Bilet VIP przeznaczony tylko dla pelnoletnich.");
+        }
 
-    if (ticketType == "Ulgowy") {
-        createdTicket = new DiscountTicket(person, 60.0, sector.toStdString(), seat);
+        Person person(name.toStdString(), surname.toStdString(), age, pesel.toStdString());
+        std::string ticketType = ticketTypeComboBox->currentText().toStdString();
+
+        if (ticketType == "Ulgowy") {
+            createdTicket = new DiscountTicket(person, 60.0, sector.toStdString(), seat);
+        }
+        else if (ticketType == "Normalny") {
+            createdTicket = new NormalTicket(person, 120.0, sector.toStdString(), seat);
+        }
+        else if (ticketType == "VIP") {
+            createdTicket = new VIPTicket(person, 400.0, sector.toStdString(), seat);
+        }
+
+        QDialog::accept();
     }
-    else if (ticketType == "Normalny") {
-        createdTicket = new NormalTicket(person, 120.0, sector.toStdString(), seat);
+    catch (const AgeException& e) {
+        QMessageBox::warning(this, "Blad", e.what());
     }
-    else if (ticketType == "VIP") {
-        createdTicket = new VIPTicket(person, 400.0, sector.toStdString(), seat);
-    }
+
 
     QDialog::accept();
 }
